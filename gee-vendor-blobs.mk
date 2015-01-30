@@ -147,13 +147,6 @@ PRODUCT_COPY_FILES += \
     vendor/lge/gee/proprietary/vendor/firmware/discretix/dxhdcp2.b02:system/vendor/firmware/discretix/dxhdcp2.b02 \
     vendor/lge/gee/proprietary/vendor/firmware/discretix/dxhdcp2.b03:system/vendor/firmware/discretix/dxhdcp2.b03 \
     vendor/lge/gee/proprietary/vendor/firmware/discretix/dxhdcp2.mdt:system/vendor/firmware/discretix/dxhdcp2.mdt \
-    vendor/lge/gee/proprietary/vendor/firmware/dsps.b00:system/vendor/firmware/dsps.b00 \
-    vendor/lge/gee/proprietary/vendor/firmware/dsps.b01:system/vendor/firmware/dsps.b01 \
-    vendor/lge/gee/proprietary/vendor/firmware/dsps.b02:system/vendor/firmware/dsps.b02 \
-    vendor/lge/gee/proprietary/vendor/firmware/dsps.b03:system/vendor/firmware/dsps.b03 \
-    vendor/lge/gee/proprietary/vendor/firmware/dsps.b04:system/vendor/firmware/dsps.b04 \
-    vendor/lge/gee/proprietary/vendor/firmware/dsps.b05:system/vendor/firmware/dsps.b05 \
-    vendor/lge/gee/proprietary/vendor/firmware/dsps.mdt:system/vendor/firmware/dsps.mdt \
     vendor/lge/gee/proprietary/vendor/firmware/keymaster/keymaster.b00:system/vendor/firmware/keymaster/keymaster.b00 \
     vendor/lge/gee/proprietary/vendor/firmware/keymaster/keymaster.b01:system/vendor/firmware/keymaster/keymaster.b01 \
     vendor/lge/gee/proprietary/vendor/firmware/keymaster/keymaster.b02:system/vendor/firmware/keymaster/keymaster.b02 \
