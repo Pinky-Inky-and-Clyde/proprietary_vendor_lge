@@ -111,6 +111,36 @@ PRODUCT_COPY_FILES += \
     vendor/lge/e975/proprietary/lib/libxml.so:system/lib/libxml.so \
     vendor/lge/e975/proprietary/lib/lib_dlb_msd.so:system/lib/lib_dlb_msd.so \
     vendor/lge/e975/proprietary/lib/libWVphoneAPI.so:system/lib/libWVphoneAPI.so \
+    vendor/lge/e975/proprietary/lib/libmmcamera_tintless_wrapper.so:system/lib/libmmcamera_tintless_wrapper.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_ov8825_video_hfr_90fps.so:system/lib/libchromatix_ov8825_video_hfr_90fps.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_ov5693_preview.so:system/lib/libchromatix_ov5693_preview.so \
+    vendor/lge/e975/proprietary/lib/libmmcamera_3a_legacy.so:system/lib/libmmcamera_3a_legacy.so \
+    vendor/lge/e975/proprietary/lib/libqc-opt.so:system/lib/libqc-opt.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_imx135_video_hd.so:system/lib/libchromatix_imx135_video_hd.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_imx135_preview.so:system/lib/libchromatix_imx135_preview.so \
+    vendor/lge/e975/proprietary/lib/libmorpho_image_stab31.so:system/lib/libmorpho_image_stab31.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_imx135_video_hdr.so:system/lib/libchromatix_imx135_video_hdr.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_imx135_zsl.so:system/lib/libchromatix_imx135_zsl.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_imx111_video_hd.so:system/lib/libchromatix_imx111_video_hd.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_ov8825_video_hfr_60fps.so:system/lib/libchromatix_ov8825_video_hfr_60fps.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_s5k4e5ya_default_video.so:system/lib/libchromatix_s5k4e5ya_default_video.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_s5k4e5ya_zsl.so:system/lib/libchromatix_s5k4e5ya_zsl.so \
+    vendor/lge/e975/proprietary/lib/libmmcamera_interface.so:system/lib/libmmcamera_interface.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_s5k4e5ya_preview.so:system/lib/libchromatix_s5k4e5ya_preview.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_ov5693_zsl.so:system/lib/libchromatix_ov5693_zsl.so \
+    vendor/lge/e975/proprietary/lib/libmorpho_panorama_gp.so:system/lib/libmorpho_panorama_gp.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_ov8825_video_hfr_120fps.so:system/lib/libchromatix_ov8825_video_hfr_120fps.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_imx132_vt.so:system/lib/libchromatix_imx132_vt.so \
+    vendor/lge/e975/proprietary/lib/libHDR.so:system/lib/libHDR.so \
+    vendor/lge/e975/proprietary/lib/libmmcamera_tintless_algo.so:system/lib/libmmcamera_tintless_algo.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_imx135_default_video.so:system/lib/libchromatix_imx135_default_video.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_ov8825_zsl.so:system/lib/libchromatix_ov8825_zsl.so \
+    vendor/lge/e975/proprietary/lib/libmmjpeg_interface.so:system/lib/libmmjpeg_interface.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_ov8825_video_hfr.so:system/lib/libchromatix_ov8825_video_hfr.so \
+    vendor/lge/e975/proprietary/lib/libchromatix_ov5693_default_video.so:system/lib/libchromatix_ov5693_default_video.so \
+    vendor/lge/e975/proprietary/lib/libadsprpc.so:system/lib/libadsprpc.so \
+    vendor/lge/e975/proprietary/lib/libmorpho_panorama_wa_viewer.so:system/lib/libmorpho_panorama_wa_viewer.so \
+    vendor/lge/e975/proprietary/lib/libmorpho_memory_allocator.so:system/lib/libmorpho_memory_allocator.so \
     vendor/lge/e975/proprietary/lib/hw/camera.msm8960.so:system/lib/hw/camera.msm8960.so \
     vendor/lge/e975/proprietary/lib/hw/nfc.default.so:system/lib/hw/nfc.default.so \
     vendor/lge/e975/proprietary/lib/hw/sensors.msm8960.so:system/lib/hw/sensors.msm8960.so \
