@@ -1,0 +1,22 @@
+#!/system/bin/sh
+# Tweaks by Loller79
+
+# Set your own IntelliPlug Profile (Default one is Balanced)
+# 0=Balanced 1=Performance 2=Conservative 3=Eco-Performance 4=Eco-Conservative
+INTELLIPLUGPROFILE=2;
+
+# Stop MPDecision before enabling IntelliPlug
+stop mpdecision;
+
+# Enable and Set IntelliPlug Parameters
+echo "1" >/sys/module/intelli_plug/parameters/intelli_plug_active;
+echo "0" >/sys/module/intelli_plug/parameters/nr_run_hysteresis;
+echo "1" >/sys/module/intelli_plug/parameters/touch_boost_active;
+echo "$INTELLIPLUGPROFILE" >/sys/module/intelli_plug/parameters/nr_run_profile_sel;
+echo "disabled" >/sys/module/intelli_plug/parameters/screen_off_max;
+
+# Available governors are : simple, ondemand, performance
+echo "simple" >/sys/class/kgsl/kgsl-3d0/pwrscale/trustzone/governor;
+
+# Set Vibrator Strength to 100
+echo "70" >/sys/class/timed_output/vibrator/amp;

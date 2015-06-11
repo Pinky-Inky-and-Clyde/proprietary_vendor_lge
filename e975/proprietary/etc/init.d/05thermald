@@ -1,0 +1,108 @@
+#!/system/bin/sh
+# 05thermald v004 by gu5t3r@XDA
+
+#### BEGIN USER SETUP ####
+Max_Freq=auto;
+Min_Freq=810000;
+Min_Temp=57;
+Max_Temp=64;
+Cores='0 1 2 3';
+LTime=30;
+#### END   USER SETUP ####
+
+####################################################################
+#### DON'T EDIT CODE BELOW IF YOU DON'T KNOW WHAT ARE YOU DOING ####
+####################################################################
+
+tsens_tz_sensor7=/sys/class/thermal/thermal_zone7/temp;
+tsens_tz_sensor8=/sys/class/thermal/thermal_zone8/temp;
+tsens_tz_sensor9=/sys/class/thermal/thermal_zone9/temp;
+tsens_tz_sensor10=/sys/class/thermal/thermal_zone10/temp;
+pa_therm0=/sys/class/thermal/thermal_zone11/temp;
+
+CPU=/sys/devices/system/cpu;
+MAX=cpufreq/scaling_max_freq;
+LMT=0;
+renice 12 "$$";
+function Date () { date +"%y-%m-%d %T"; };
+echo "[${0##*/}] ($(Date)) (Nice=$(nice)) (Temp=$(<"$pa_therm0"))"$'\n';
+if [ ! -f "$pa_therm0" ]; then echo 'ERROR: pa_therm0'; exit 1; fi;
+if [ ! -f "$tsens_tz_sensor7" ]; then echo 'ERROR: tsens_tz_sensor7'; exit 1; fi;
+if [ ! -f "$tsens_tz_sensor8" ]; then echo 'ERROR: tsens_tz_sensor8'; exit 1; fi;
+if [ ! -f "$tsens_tz_sensor9" ]; then echo 'ERROR: tsens_tz_sensor9'; exit 1; fi;
+if [ ! -f "$tsens_tz_sensor10" ]; then echo 'ERROR: tsens_tz_sensor10'; exit 1; fi;
+if [ "$Min_Temp" -ge "$Max_Temp" ]; then echo 'ERROR: Temp Setup'; exit 1; fi;
+if [ "$Max_Freq" != 'auto' -a "$Min_Freq" -ge "$Max_Freq" ]; then echo 'ERROR: Freq Setup'; exit 1; fi;
+if [ ! -f "$CPU/cpu0/cpufreq/scaling_available_frequencies" ]; then echo 'ERROR: SAF'; exit 1; fi;
+for CN in $Cores; do if [ ! -f "$CPU/cpu$CN/online" ]; then echo 'ERROR: Cores Setup'; exit 1; fi; done;
+echo "Cores: $Cores";
+
+function DoMath () {
+	unset Freqs Temps TStep i j;
+	if [ -n "$auto" ] || [ "$Max_Freq" == 'auto' ]; then
+		Max_Freq="$(<"$CPU/cpu0/$MAX")"; auto=1;
+	else
+		Max_Freq="$Max_Freq"; auto=;
+	fi
+	FreqsA=($(<"$CPU/cpu0/cpufreq/scaling_available_frequencies"));
+	i=0;
+	j=${#FreqsA[@]};
+	while [ $j -gt 0 ]; do
+		let 'j--';
+		if [ "${FreqsA[$j]}" -le "$Max_Freq" -a "${FreqsA[$j]}" -ge "$Min_Freq" ]; then
+			Freqs[$i]="${FreqsA[$j]}"; let 'i++';
+		fi;
+	done; unset FreqsA i j;
+	j=${#Freqs[@]};
+	if [ "$j" -lt 3 ]; then echo 'ERROR: Not Enough Freqs'; return 1; fi
+	let 'j-=2'; i=1; let 'TStep=(Max_Temp-Min_Temp)*1000/j';
+	let 'Temps[0]=Min_Temp*1000';
+	while [ $i -lt $j ]; do let 'Temps[i]=Temps[i-1]+TStep'; let i++; done;
+	let 'Temps[i]=Max_Temp*1000'; unset TStep i j; LVL="${#Temps[@]}";
+	echo "Levels ($(Date)):"; i=0;
+	while [ $i -lt $LVL ]; do
+		echo "       < ${Temps[$i]} :: ${Freqs[$i]}"; let i++;
+	done;
+	echo "       < ***** :: ${Freqs[$i]}"$'\n';
+}
+
+function SetCPU () {
+if [ "$LMT" -ne "$1" ]; then 
+	for CN in $Cores; do
+		echo '1' >$CPU/cpu$CN/online;
+		echo "$1" >$CPU/cpu$CN/$MAX;
+	done;
+	LMT="$1";
+	echo "SetCPU ($(Date)): Freq Limit = $1";
+fi; 
+}
+
+function ThermalD () {
+	while :; do
+		DoMath && SetCPU "$Max_Freq" || { sleep 300; continue; };
+		while :; do
+			sleep "$LTime";
+			Temp[0]="$(<"$pa_therm0")"; Temp[1]="$(<"$tsens_tz_sensor7")"; Temp[2]="$(<"$tsens_tz_sensor8")"; Temp[3]="$(<"$tsens_tz_sensor9")"; Temp[4]="$(<"$tsens_tz_sensor10")";
+			#### CORE 0-3 Temperature Check ####
+			if [ "${Temp[1]}" -gt 100 -o "${Temp[2]}" -gt 100 -o "${Temp[3]}" -gt 100 -o "${Temp[4]}" -gt 100 ]; then
+				echo "SetCPU ($(Date)): CPU Temp (${Temp[@]}) Too High...Powering OFF...";
+				sync; poweroff; break;
+			fi;
+			#### Mainboard Temperature Check ####
+			if [ -n "$auto" ] && [ "$LMT" -ne "$(<"$CPU/cpu0/$MAX")" ] && [ 'off' != "$(</sys/power/wait_for_fb_status)" ]; then
+				echo $'\n''Detected Max Freq change... Rebooting script...'$'\n';
+				break;
+			fi
+			i=0;
+			while [ $i -lt $LVL ]; do
+				if [ "${Temp[0]}" -lt "${Temps[$i]}" ]; then SetCPU "${Freqs[$i]}"; continue 2; fi;
+				let 'i++';
+			done;
+			SetCPU "${Freqs[$i]}";
+		done; 
+	done; 
+}
+
+stop thermald;
+stop thermald;
+ThermalD & exit 0;
