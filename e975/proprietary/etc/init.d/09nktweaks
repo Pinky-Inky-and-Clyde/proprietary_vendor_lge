@@ -1,0 +1,119 @@
+#!/system/bin/sh
+# 09nktweaks v003 by Mr.MEX
+
+######################
+## BEGIN USER SETUP ##
+######################
+# CPU Governor
+gov=interactive
+
+# CPU Min freq
+min_freq=100000
+
+# CPU Max freq
+max_freq=1728000
+
+# CPU Online
+cpu_online=1
+
+# Color & Gamma (FAUX GAMMA CONTROL)
+color_red=255
+color_green=255
+color_blue=255
+
+# Whitepoint
+g_white=64
+
+# ????
+g_mid=68
+
+# Blackpoint
+g_black=118
+
+# ????
+g_unknown1=0
+
+# Contrast
+g_contrast=20
+
+# Brightness
+g_brightness=0
+
+# Saturation
+g_saturation=80
+
+# ????
+g_unknown2=48
+
+# ????
+g_unknown3=2
+
+# Fast charging
+fastcharge=1
+
+# The size of the read ahead buffer
+readahead=3072
+####################
+## END USER SETUP ##
+####################
+# CPU
+echo $cpu_online > /sys/devices/system/cpu/cpu1/online
+echo $cpu_online > /sys/devices/system/cpu/cpu2/online
+echo $cpu_online > /sys/devices/system/cpu/cpu3/online
+echo $min_freq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_min_freq
+echo $min_freq > /sys/devices/system/cpu/cpu1/cpufreq/scaling_min_freq
+echo $min_freq > /sys/devices/system/cpu/cpu2/cpufreq/scaling_min_freq
+echo $min_freq > /sys/devices/system/cpu/cpu3/cpufreq/scaling_min_freq
+echo $max_freq > /sys/devices/system/cpu/cpu0/cpufreq/scaling_max_freq
+echo $max_freq > /sys/devices/system/cpu/cpu1/cpufreq/scaling_max_freq
+echo $max_freq > /sys/devices/system/cpu/cpu2/cpufreq/scaling_max_freq
+echo $max_freq > /sys/devices/system/cpu/cpu3/cpufreq/scaling_max_freq
+echo "$gov" > /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+echo "$gov" > /sys/devices/system/cpu/cpu1/cpufreq/scaling_governor
+echo "$gov" > /sys/devices/system/cpu/cpu2/cpufreq/scaling_governor
+echo "$gov" > /sys/devices/system/cpu/cpu3/cpufreq/scaling_governor
+echo "$color_red $color_green $color_blue" > /sys/devices/platform/kcal_ctrl.0/kcal
+echo 1 > /sys/devices/platform/kcal_ctrl.0/kcal_ctrl
+
+# Tweak red gamma values here if needed
+gr_white=`expr $g_white + 0`
+gr_mid=`expr $g_mid + 0`
+gr_black=`expr $g_black + 0`
+gr_unknown1=`expr $g_unknown1 + 0`
+gr_contrast=`expr $g_contrast + 0`
+gr_brightness=`expr $g_brightness + 0`
+gr_saturation=`expr $g_saturation + 0`
+gr_unknown2=`expr $g_unknown2 + 0`
+gr_unknown3=`expr $g_unknown3 + 0`
+gr_cksummotley=`expr $gr_white + $gr_mid + $gr_black + $gr_unknown1 + $gr_contrast + $gr_brightness + $gr_saturation + $gr_unknown2 + $gr_unknown3`
+
+# Tweak green gamma values here if needed
+gg_white=`expr $g_white + 0`
+gg_mid=`expr $g_mid + 0`
+gg_black=`expr $g_black + 0`
+gg_unknown1=`expr $g_unknown1 + 0`
+gg_contrast=`expr $g_contrast - 1`
+gg_brightness=`expr $g_brightness + 0`
+gg_saturation=`expr $g_saturation + 0`
+gg_unknown2=`expr $g_unknown2 + 0`
+gg_unknown3=`expr $g_unknown3 + 0`
+gg_cksummotley=`expr $gg_white + $gg_mid + $gg_black + $gg_unknown1 + $gg_contrast + $gg_brightness + $gg_saturation + $gg_unknown2 + $gg_unknown3`
+
+# Tweak blue gamma values here if needed
+gb_white=`expr $g_white + 0`
+gb_mid=`expr $g_mid + 0`
+gb_black=`expr $g_black + 0`
+gb_unknown1=`expr $g_unknown1 + 0`
+gb_contrast=`expr $g_contrast - 1`
+gb_brightness=`expr $g_brightness + 0`
+gb_saturation=`expr $g_saturation + 0`
+gb_unknown2=`expr $g_unknown2 + 0`
+gb_unknown3=`expr $g_unknown3 + 0`
+gb_cksummotley=`expr $gb_white + $gb_mid + $gb_black + $gb_unknown1 + $gb_contrast + $gb_brightness + $gb_saturation + $gb_unknown2 + $gb_unknown3`
+echo "$gr_cksummotley $gr_white $gr_mid $gr_black $gr_unknown1 $gr_contrast $gr_brightness $gr_saturation $gr_unknown2 $gr_unknown3" > /sys/devices/platform/mipi_lgit.1537/kgamma_r
+echo "$gg_cksummotley $gg_white $gg_mid $gg_black $gg_unknown1 $gg_contrast $gg_brightness $gg_saturation $gg_unknown2 $gg_unknown3" > /sys/devices/platform/mipi_lgit.1537/kgamma_g
+echo "$gb_cksummotley $gb_white $gb_mid $gb_black $gb_unknown1 $gb_contrast $gb_brightness $gb_saturation $gb_unknown2 $gb_unknown3" > /sys/devices/platform/mipi_lgit.1537/kgamma_b
+
+echo $fastcharge > /sys/kernel/fast_charge/force_fast_charge
+
+echo $readahead > /sys/devices/virtual/bdi/179:0/read_ahead_kb
