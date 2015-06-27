@@ -187,6 +187,12 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/lib/libsc-a2xx.so:system/lib/libsc-a2xx.so \
     $(LOCAL_PATH)/lib/libsc-a3xx.so:system/lib/libsc-a3xx.so \
     $(LOCAL_PATH)/lib/libgsl.so:system/lib/libgsl.so \
+    $(LOCAL_PATH)/lib/libbypass.so:system/lib/libbypass.so \
+    $(LOCAL_PATH)/lib/libizat_core.so:system/lib/libizat_core.so \
+    $(LOCAL_PATH)/lib/libjackpal-androidterm4.so:system/lib/libjackpal-androidterm4.so \
+    $(LOCAL_PATH)/lib/libjni_latinimegoogle.so:system/lib/libjni_latinimegoogle.so \
+    $(LOCAL_PATH)/lib/libloc_core.so:system/lib/libloc_core.so \
+    $(LOCAL_PATH)/lib/libloc_ds_api.so:system/lib/libloc_ds_api.so \
     $(LOCAL_PATH)/lib/hw/camera.msm8960.so:system/lib/hw/camera.msm8960.so \
     $(LOCAL_PATH)/lib/hw/nfc.default.so:system/lib/hw/nfc.default.so \
     $(LOCAL_PATH)/lib/hw/sensors.msm8960.so:system/lib/hw/sensors.msm8960.so \
